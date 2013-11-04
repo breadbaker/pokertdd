@@ -11,22 +11,17 @@ describe Game do
   let(:player2) { HumanPlayer.new("player2", 200) }
   let(:deck) { Deck.new }
   let(:dealer) { Dealer.new }
-
-  describe "#deal_cards" do
-    it "deals hand to players" do
-      hand1, hand2 = double("hand1"), double(hand2)
-      hands = [hand1, hand2]
-
-      Hand.stub(:deal_from).with(deck).and_return do
-        hands.shift
-      end
-
-      player1.should_receive(:hand=).with(hand1)
-      player2.should_receive(:hand=).with(hand2)
-
-      game.deal_cards
+  
+  context "#pot" do
+    it "init to zero" do
+      expect(game.pot).to eq(0)
     end
   end
+
+  context "#take_bet" do
+    it "adds to pot" do
+      game.take_bet(100)
+      game
 
   describe "#request_bets" do
     it "queries each player for bets" do

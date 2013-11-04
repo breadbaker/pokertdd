@@ -61,7 +61,7 @@ describe Deck do
   end
   
   describe "#draw" do
-    it "pulls a card from the top of the deck" do
+    it "changes size of the deck" do
       card = deck.draw
       expect(deck.count).to eq(51)
     end

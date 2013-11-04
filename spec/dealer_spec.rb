@@ -24,10 +24,11 @@ describe Dealer do
       double("deck", :cards => cards)
     end
     before do
+      deck = Deck.new(cards)
       players = [player1,player2]
     end
     it "call take card on each player 5 times" do
-      Player.hand.stub(:draw).and_return(true)
+      Hand.stub(:draw).and_return(true)
       dealer.deal(players,deck)
       player1.hand.should_receive(:take_card).exactly(10).times
     end
@@ -37,4 +38,9 @@ describe Dealer do
       deck.should_receive(:draw).exactly(10).times
     end
   end
+  
+
+
+  
+ 
 end
