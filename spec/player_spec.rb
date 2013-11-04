@@ -15,18 +15,14 @@ describe Player do
       ])
   end
 
-  before do
-    player.hand = Hand.deal_from(deck)
-  end
-
   its(:name) { should == "Nick the Greek" }
   its(:bankroll) { should == 200_000 }
   its("hand.cards.count") { should == 5 }
 
-  describe "#place_bet" do
+  describe "#act" do
     let(:dealer) { double("dealer", :take_bet => nil) }
 
-    it "registers bet with dealer" do
+    it "returns hash of action and" do
       dealer.should_receive(:take_bet).with(player, 10_000)
 
       player.place_bet(dealer, 10_000)
@@ -54,11 +50,9 @@ describe Player do
   end
 
   describe "#return_cards" do
-    it "returns player's cards to the deck" do
-      deck = double("deck")
-      player.hand.should_receive(:return_cards).with(deck)
+    it "returns player's cards to the dealer" do
 
-      player.return_cards(deck)
+      return_cards = player.return_cards
     end
 
     it "resets hand to nil" do

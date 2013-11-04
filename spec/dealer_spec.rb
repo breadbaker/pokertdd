@@ -23,11 +23,9 @@ describe Dealer do
     let(:deck) do
       double("deck", :cards => cards)
     end
-
     before do
       players = [player1,player2]
     end
-
     it "call take card on each player 5 times" do
       Player.hand.stub(:draw).and_return(true)
       dealer.deal(players,deck)

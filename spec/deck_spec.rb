@@ -22,15 +22,6 @@ describe Deck do
     deck.count.should == 52
   end
 
-  it "lets us peek at the top card without taking it" do
-    deck.peek.should be_a(Card)
-    deck.count.should == 52
-  end
-
-  it "lets us test if a card is present in the deck" do
-    deck.include?(deck.peek).should be_true
-  end
-
   it "can be initialized with an array of cards" do
     cards = [
       Card.new(:spades, :ace),
@@ -46,30 +37,6 @@ describe Deck do
     expect do
       deck.shuffle
     end.to change{deck.peek}
-  end
-
-  describe "#take" do
-    it "lets user take cards" do
-      taken_cards = deck.take(5)
-
-      taken_cards.count.should == 5
-      taken_cards.each { |card| card.is_a?(Card) }
-    end
-
-    it "removes those cards from deck" do
-      taken_cards = deck.take(5)
-
-      deck.count.should == 47
-      taken_cards.each do |card|
-        deck.include?(card).should be_false
-      end
-    end
-
-    it "doesn't let the user take too many cards" do
-      expect do
-        deck.take(100)
-      end.to raise_error("not enough cards")
-    end
   end
 
   describe "#return" do
@@ -90,6 +57,17 @@ describe Deck do
       deck.return(taken_cards)
       deck.take(47)
       deck.take(5).should =~ original_cards
+    end
+  end
+  
+  describe "#draw" do
+    it "pulls a card from the top of the deck" do
+      card = deck.draw
+      expect(deck.count).to eq(51)
+    end
+    it "returns a card" do
+      card = deck.draw
+      expect(card.class).to eq(Card)
     end
   end
 end
